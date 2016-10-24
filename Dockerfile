@@ -8,6 +8,10 @@ ENV NGINX_VERSION 1.9.6
 ENV RTMP_VERSION 1.1.7
 ENV VOD_VERSION 1.4
 
+#ENV NGINX_VERSION 1.6.2
+#ENV RTMP_VERSION 1.1.10
+#ENV VOD_VERSION 1.10
+
 RUN mkdir -p /usr/src/nginx
 WORKDIR /usr/src/nginx
 
@@ -66,6 +70,10 @@ RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
 VOLUME ["/var/cache/nginx"]
 
-EXPOSE 80 443
+# paul@flo.org
+COPY nginx.conf /etc/nginx/nginx.conf
+VOLUME ["/usr/share/nginx/html/media"]
+
+EXPOSE 80 443 1935
 
 CMD ["nginx", "-g", "daemon off;"]
